@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+
+    <script>
+        $(document).ready(function(){
+            localStorage.setItem("property1","car")
+            let proper = localStorage.getItem("property1")
+            document.getElementById("vic").innerHTML = proper
+            console.log(proper)
+        })
+    </script>
+
+    
+    <p id="vic"></p>
+
+</body>
+</html>

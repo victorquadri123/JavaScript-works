@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="task.css">
+
+</head>
+
+ <body>
+     <div class="first">
+      <div class="second">
+        <div class="third">
+        <input type="text" class="txt" placeholder="Add Tasks">
+        <button class="btn" id="add-btn">Add</button>
+        <button class="edit-btn" id="edit-btn" style="display: none;">Edit</button>
+        </div>
+        <div class="tasks"></div>
+      </div>
+    </div>
+     
+    
+  
+    <script>
+    
+
+      var tasks = []; 
+      var taskIndex = -1; 
+  
+      
+      document.querySelector("#add-btn").onclick = function() {
+        var taskValue = document.querySelector(".txt").value.trim();
+        if (taskValue === "") {
+          alert("Please input a task");
+          return;
+        }
+  
+        tasks.push(taskValue); 
+        renderTasks();
+        document.querySelector(".txt").value = "";
+      };
+  
+      
+      function renderTasks() {
+        var tasksContainer = document.querySelector(".tasks");
+        tasksContainer.innerHTML = "";
+  
+        tasks.forEach(function(task, index) {
+          tasksContainer.innerHTML += `
+            <div class="task">
+              <span id="title">${task}</span>
+              <button class="delete" data-index="${index}">Delete</button>
+              <button class="edit" data-index="${index}">Edit</button>
+            </div>
+          `;
+        });
+  
+       
+        addDeleteAndEditEvents();
+      }
+  
+      
+      function addDeleteAndEditEvents() {
+        var deleteButtons = document.querySelectorAll(".delete");
+        var editButtons = document.querySelectorAll(".edit");
+  
+        
+        deleteButtons.forEach(function(button) {
+          button.onclick = function() {
+            var index = this.getAttribute("data-index");
+            tasks.splice(index, 1);
+            renderTasks();
+          };
+        });
+  
+        
+        editButtons.forEach(function(button) {
+          button.onclick = function() {
+            taskIndex = this.getAttribute("data-index");
+            document.querySelector(".txt").value = tasks[taskIndex];
+            document.querySelector("#add-btn").style.display = "none";
+            document.querySelector("#edit-btn").style.display = "block";
+          };
+        });
+      }
+  
+      
+      document.querySelector("#edit-btn").onclick = function() {
+        var taskValue = document.querySelector(".txt").value.trim();
+        if (taskValue === "") {
+          alert("Please input a task");
+          return;
+        }
+  
+        tasks[taskIndex] = taskValue; 
+        renderTasks(); 
+        document.querySelector(".txt").value = ""; 
+        document.querySelector("#add-btn").style.display = "block";
+        document.querySelector("#edit-btn").style.display = "none"; 
+      };
+
+      
+    </script>
+  </body>
+  
+ 
+  
+</html>
